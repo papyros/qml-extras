@@ -58,6 +58,13 @@ function isToday(date) {
     return datesEqual(date, today)
 }
 
+function isThisWeek(date) {
+    var endOfWeek = new Date()
+    setDayOfWeek(endOfWeek, 6)
+
+    return dateIsBeforeOrSame(date, endOfWeek)
+}
+
 function datesEqual(date1, date2) {
     return date1.getFullYear() === date2.getFullYear() &&
             date1.getMonth() === date2.getMonth() &&
@@ -110,12 +117,17 @@ function friendlyDuration(duration, type) {
     var minutes = Math.floor(duration/(1000 * 60) - 60 * hours)
     var seconds = Math.floor(duration/1000 - 60 * minutes - 60 * 60 * hours)
 
-    var str = "%1s".arg(seconds)
-    //if (minutes >= 1)
+    if (type === undefined)
+        type = '?'
+
+    var str = ''
+    if (type === 's' || type === '?')
+        str = "%1s".arg(seconds)
+    if (type === 's' || type === 'm' || (type === '?' && (minutes >= 1 || hours >= 1)))
         str = "%1m %2".arg(minutes).arg(str)
-    //if (hours >= 1)
+    if (type === 's' || type === 'm' || type === 'h' || (type === '?' && hours >= 1))
         str = "%1h %2".arg(hours).arg(str)
-    return str
+    return str.trim()
 }
 
 function parseDuration(str) {
