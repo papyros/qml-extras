@@ -21,27 +21,29 @@
  ***************************************************************************/
 .pragma library
 
-function post(path, options, callback, args, headers, body) {
-    return request(path, "POST", options, callback, args, headers, body)
+Qt.include('promises.js')
+
+function post(path, options, args, headers, body) {
+    return request(path, "POST", options, args, headers, body)
 }
 
-function patch(path, options, callback, args, headers, body) {
-    return request(path, "POST", options, callback, args, headers, body)
+function patch(path, options, args, headers, body) {
+    return request(path, "POST", options, args, headers, body)
 }
 
-function put(path, options, callback, args, headers, body) {
-    return request(path, "PUT", options, callback, args, headers, body)
+function put(path, options, args, headers, body) {
+    return request(path, "PUT", options, args, headers, body)
 }
 
-//function delete(path, options, callback, args) {
-//    request(path, "DELETE", options, callback, args)
+//function delete(path, options, args) {
+//    request(path, "DELETE", options, args)
 //}
 
-function get(path, options, callback, args, headers) {
-    return request(path, "GET", options, callback, args, headers)
+function get(path, options, args, headers) {
+    return request(path, "GET", options, args, headers)
 }
 
-function request(path, call, options, callback, args, headers, body) {
+function request(path, call, options, args, headers, body) {
     var address = path
 
     if (options === undefined)
@@ -53,7 +55,9 @@ function request(path, call, options, callback, args, headers, body) {
     print(call, address, body)
     print("Headers", JSON.stringify(headers))
 
-    var doc = new XMLHttpRequest();
+    var promise = new Promise()
+
+    var doc = new XMLHttpRequest();   
     doc.timeout = 1000;
     doc.onreadystatechange = function() {
         if (doc.readyState === XMLHttpRequest.DONE) {
@@ -61,15 +65,13 @@ function request(path, call, options, callback, args, headers, body) {
 
             //print(doc.responseText)
             print("Status:",doc.status, "for call", call, address, body)
-            if (callback !== undefined) {
-                //print(callback)
-                if (doc.status == 200 || doc.status == 201 || doc.status == 202 || doc.status === 304) {
-                    print("Calling back with no error...")
-                    callback(false, doc.status, doc.responseText, args, doc.getResponseHeader("ETag"))
-                } else {
-                    print("Calling back with error...")
-                    callback(true, doc.status, doc.responseText, args, doc.getResponseHeader("ETag"))
-                }
+
+            if (doc.status == 200 || doc.status == 201 || doc.status == 202 || doc.status === 304) {
+                print("Calling back with no error...")
+                promise.resolve(doc.responseText)
+            } else {
+                print("Calling back with error...")
+                promise.reject(doc.status)
             }
         }
      }
@@ -87,5 +89,5 @@ function request(path, call, options, callback, args, headers, body) {
     else
         doc.send();
 
-    return doc
+    return promise
 }
