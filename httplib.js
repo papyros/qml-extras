@@ -23,31 +23,32 @@
 
 Qt.include('promises.js')
 
-function post(path, options, args, headers, body) {
-    return request(path, "POST", options, args, headers, body)
+function post(path, args) {
+    return request(path, "POST", args)
 }
 
-function patch(path, options, args, headers, body) {
-    return request(path, "POST", options, args, headers, body)
+function patch(path, args) {
+    return request(path, "POST", args)
 }
 
-function put(path, options, args, headers, body) {
-    return request(path, "PUT", options, args, headers, body)
+function put(path, args) {
+    return request(path, "PUT", args)
 }
 
 //function delete(path, options, args) {
 //    request(path, "DELETE", options, args)
 //}
 
-function get(path, options, args, headers) {
-    return request(path, "GET", options, args, headers)
+function get(path, args) {
+    return request(path, "GET", args)
 }
 
-function request(path, call, options, args, headers, body) {
+function request(path, call, args) {
     var address = path
 
-    if (options === undefined)
-        options = []
+    var options = args.options ? args.options : []
+    var headers = args.headers ? args.headers : {}
+    var body = args.body ? args.body : undefined
 
     if (options.length > 0)
         address += "?" + options.join("&").replace(/ /g, "%20")
