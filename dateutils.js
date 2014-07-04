@@ -43,12 +43,14 @@ function setDayOfWeek(date, day) {
 }
 
 function dayOfWeekIndex(date) {
+    if (!date)
+        date = new Date()
+
     var list = []
     for (var i = 0; i < 7; i++) {
         list.push(Qt.locale().dayName(i))
     }
     var day = Qt.formatDate(date, "dddd")
-    print (day)
     return list.indexOf(day)
 }
 

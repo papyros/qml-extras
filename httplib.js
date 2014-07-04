@@ -46,6 +46,8 @@ function get(path, args) {
 function request(path, call, args) {
     var address = path
 
+    if (!args) args = {}
+
     var options = args.options ? args.options : []
     var headers = args.headers ? args.headers : {}
     var body = args.body ? args.body : undefined
