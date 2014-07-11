@@ -35,7 +35,22 @@ function escapeHTML(html) {
 
 function cherrypick(list, properties) {
 
-    if (typeof(list) === 'object') {
+    if (list instanceof Array) {
+        var result = []
+
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i]
+            var obj = {}
+            for (var j = 0; j < properties.length; j++) {
+                var prop = properties[j]
+                obj[prop] = item[prop]
+            }
+
+            result.push(obj)
+        }
+
+        return result
+    } else {
         var obj = {}
 
         for (var i = 0; i < properties.length; i++) {
@@ -45,21 +60,6 @@ function cherrypick(list, properties) {
         }
 
         return obj
-    } else {
-        var result = []
-
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i]
-            var obj = {}
-            for (var i = 0; i < properties.length; i++) {
-                var prop = properties[i]
-                obj[prop] = item[prop]
-            }
-
-            result.push(obj)
-        }
-
-        return result
     }
 }
 
