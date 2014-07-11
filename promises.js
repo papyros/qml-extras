@@ -42,7 +42,7 @@ Promise.prototype.error = function (onError) {
 };
 
 Promise.prototype.resolve = function (value) {
-    print("Success")
+    //print("Success")
     for (var i = 0; i < this.thenHandlers.length; i++) {
         var handler = this.thenHandlers[i]
         value = handler(value, this.info)
@@ -55,7 +55,7 @@ Promise.prototype.resolve = function (value) {
 };
 
 Promise.prototype.reject = function (error) {
-    print("Failure", error)
+    //print("Failure", error)
     for (var i = 0; i < this.onError.length; i++) {
         var handler = this.onError[i]
         handler(error, this.info)

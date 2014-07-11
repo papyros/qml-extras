@@ -39,7 +39,7 @@ function cherrypick(list, properties) {
     for (var i = 0; i < list.length; i++) {
         var item = list[i]
         var obj = {}
-        for (prop in properties) {
+        for (var prop in properties) {
             obj[prop] = item[prop]
         }
 
