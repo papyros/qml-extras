@@ -95,23 +95,29 @@ function dateIsThisWeek(date) {
     return dateIsBefore(date, end)
 }
 
-function friendlyTime(time) {
+function friendlyTime(time, standalone) {
     var now = new Date()
+    time = new Date(time)
     var seconds = (now - time)/1000;
     //print("Difference:", now, time, now - time)
     var minutes = Math.round(seconds/60);
     if (minutes < 1)
-        return i18n.tr("Now")
+        return standalone ? ("Now") : "now"
     else if (minutes == 1)
-        return i18n.tr("1 minute ago")
+        return ("1 minute ago")
     else if (minutes < 60)
-        return i18n.tr("%1 minutes ago").arg(minutes)
-    var hours = Math.round(minutes/24);
+        return ("%1 minutes ago").arg(minutes)
+    var hours = Math.round(minutes/60);
     if (hours == 1)
-        return i18n.tr("1 hour ago")
+        return ("1 hour ago")
     else if (hours < 24)
-        return i18n.tr("%1 hours ago").arg(hours)
-    return Qt.formatDate(time)
+        return ("%1 hours ago").arg(hours)
+    var days = Math.round(hours/24)
+    if (days == 1)
+        return ("1 day ago")
+    else if (days <= 10)
+        return ("%1 days ago").arg(days)
+    return standalone ? Qt.formatDate(time) : ("on %1").arg(Qt.formatDate(time))
 }
 
 function friendlyDuration(duration, type) {
