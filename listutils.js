@@ -21,6 +21,8 @@ function filter(tasks, filter, name) {
     //print("Running filter:", name)
     var list = []
 
+    if (tasks.hasOwnProperty('busy') && tasks.busy) return list
+
     for (var i = 0; i < length(tasks); i++) {
         var task = getItem(tasks, i)
         //print("Filtering:", task.name)
