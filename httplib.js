@@ -53,10 +53,10 @@ function request(path, call, args) {
     var body = args.body ? args.body : undefined
 
     if (options.length > 0)
-        address += "?" + options.join("&").replace(/ /g, "%20")
+        address += (address.indexOf('?') == -1 ? "?" : "&") + options.join("&").replace(/ /g, "%20")
 
-    print(call, address, body)
-    print("Headers", JSON.stringify(headers))
+    //print(call, address, body)
+    //print("Headers", JSON.stringify(headers))
 
     var promise = new Promise()
 
@@ -67,14 +67,27 @@ function request(path, call, args) {
             //print(doc.getResponseHeader("X-RateLimit-Remaining"))
 
             //print(doc.responseText)
-            print("Status:",doc.status, "for call", call, address, body)
+
+
+            var responseArray = doc.getAllResponseHeaders().split('\n')
+            var responseHeaders = {}
+            for (var i = 0; i < responseArray.length; i++) {
+                var header = responseArray[i]
+                var items = split(header, ':', 1)
+                responseHeaders[items[0]] = items[1]
+            }
+
+            //print("Status:",doc.status, "for call", call, address, headers['If-None-Match'], responseHeaders['etag'])
+
+            promise.info.headers = responseHeaders
+            promise.info.status = doc.status
 
             if (doc.status == 200 || doc.status == 201 || doc.status == 202 || doc.status === 304) {
                 print("Calling back with no error...")
                 promise.resolve(doc.responseText)
             } else {
                 print("Calling back with error...")
-                promise.reject(doc.status)
+                promise.reject(doc.responseText)
             }
         }
      }
@@ -93,4 +106,24 @@ function request(path, call, args) {
         doc.send();
 
     return promise
+}
+
+function split(string, sep, limit) {
+    var array = []
+    for (var i = 0; i < limit; i++) {
+        var index = string.indexOf(sep)
+        if (index === -1) {
+            array.push(string)
+            string = undefined
+            break;
+        } else {
+            array.push(string.substring(0, index))
+            string = string.substring(index+1)
+        }
+    }
+
+    if (string !== undefined)
+        array.push(string.trim())
+
+    return array
 }
