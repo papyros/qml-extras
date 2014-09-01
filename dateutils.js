@@ -167,3 +167,7 @@ function timeFromDate(date) {
     print(date.getSeconds(),date.getMinutes() * 60,date.getHours() * 3600)
     return 1000 * (date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 3600)
 }
+
+function isValid(date) {
+    return date.toString() != "Invalid Date"
+}
