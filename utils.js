@@ -77,3 +77,18 @@ function findChild(obj,objectName) {
     }
     return null;
 }
+
+function newObject(path, args, parent) {
+    if (!args)
+        args = {}
+
+    args.parent = parent
+
+    var component = Qt.createComponent(path);
+    if (component.status == Component.Error) {
+        // Error Handling
+        print("Unable to load object: " + path + "\n" + component.errorString())
+    }
+
+    return component.createObject(parent, args);
+}
