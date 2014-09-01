@@ -25,7 +25,9 @@ today.setMilliseconds(0)
 
 function formattedDate(date) {
     if (isToday(date)) {
-        return "Today"
+        return "Today (%1)".arg(dayOfWeek(date))
+    } else if (isTomorrow(date)) {
+        return "Tomorrow (%1)".arg(dayOfWeek(date))
     } else {
         return date.toLocaleDateString(Qt.locale())
     }
@@ -56,6 +58,13 @@ function dayOfWeekIndex(date) {
 
 function isToday(date) {
     var today = new Date()
+
+    return datesEqual(date, today)
+}
+
+function isTomorrow(date) {
+    var today = new Date()
+    today.setDate(today.getDate() + 1)
 
     return datesEqual(date, today)
 }
