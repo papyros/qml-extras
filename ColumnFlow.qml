@@ -33,6 +33,8 @@ Item {
     property alias delegate: repeater.delegate
     property int contentHeight: 0
 
+    height: contentHeight
+
     onColumnsChanged: reEvalColumns()
     onModelChanged: reEvalColumns()
 
@@ -122,8 +124,11 @@ Item {
         }
 
         var cHeight = 0
-        for (i = 0; i < columns; i++)
+        for (i = 0; i < columns; i++) {
+            if (!columnHeights[i])
+                continue
             cHeight = Math.max(cHeight, columnHeights[i])
+        }
         contentHeight = cHeight
 
         updateWidths()
