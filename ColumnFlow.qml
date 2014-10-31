@@ -25,7 +25,9 @@ Rectangle {
 Item {
     id: columnFlow
 
-    property int columns
+    property int columnWidth
+
+    property int columns: Math.max(0, Math.floor(width/columnWidth))
     property bool repeaterCompleted: false
     property alias model: repeater.model
     property alias delegate: repeater.delegate
