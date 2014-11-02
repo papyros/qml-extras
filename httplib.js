@@ -55,8 +55,8 @@ function request(path, call, args) {
     if (options.length > 0)
         address += (address.indexOf('?') == -1 ? "?" : "&") + options.join("&").replace(/ /g, "%20")
 
-    //print(call, address, body)
-    //print("Headers", JSON.stringify(headers))
+    print(call, address, body)
+    print("Headers", JSON.stringify(headers))
 
     var promise = new Promise()
 
