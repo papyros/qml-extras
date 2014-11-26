@@ -23,7 +23,6 @@
  */
 
 import QtQuick 2.0
-import "listutils.js" as List
 
 Object {
     id: document
@@ -35,13 +34,14 @@ Object {
     property int version: 1
 
     function set(name, value) {
-        data[name] = value
-        data = data //TODO: Is there a better way?
+        if ( data[name] !== value ) {
+            data[name] = value
+            dataChanged();
+        }
     }
 
     function sync(name, value) {
-        data[name] = value
-        data = data //TODO: Is there a better way?
+        set(name,value);
         return Qt.binding(function() { return get(name, value) })
     }
 
