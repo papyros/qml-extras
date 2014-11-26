@@ -1,0 +1,12 @@
+module Quantum.Extras
+
+CircleImage 0.1 CircleImage.qml
+ColumnFlow 0.1 ColumnFlow.qml
+Document 0.1 Document.qml
+Object 0.1 Object.qml
+
+DateUtils 0.1 js/dateutils.js
+HttpLib 0.1 js/httplib.js
+ListUtils 0.1 js/listutils.js
+Promises 0.1 js/promises.js
+Utils 0.1 js/utils.js
