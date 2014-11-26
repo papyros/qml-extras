@@ -18,6 +18,7 @@
  */
 
 .pragma library
+.import QtQuick 2.0 as QtQuick
 
 function generateID() {
     var guid = (function() {
@@ -106,7 +107,7 @@ function newObject(path, args, parent) {
     args.parent = parent
 
     var component = Qt.createComponent(path);
-    if (component.status == Component.Error) {
+    if (component.status === QtQuick.Component.Error) {
         // Error Handling
         print("Unable to load object: " + path + "\n" + component.errorString())
     }
