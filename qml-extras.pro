@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 SUBDIRS += tests
 
-deployment.files += Quantum/Extras
+deployment.files += Material/Extras
 
-deployment.path = $$[QT_INSTALL_QML]/Quantum
+deployment.path = $$[QT_INSTALL_QML]/Material
 INSTALLS += deployment

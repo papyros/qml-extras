@@ -1,4 +1,4 @@
-module Quantum.Extras
+module Material.Extras
 
 CircleImage 0.1 CircleImage.qml
 ColumnFlow 0.1 ColumnFlow.qml

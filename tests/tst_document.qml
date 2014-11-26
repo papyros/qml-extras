@@ -1,6 +1,6 @@
 import QtQuick 2.3
 import QtTest 1.0
-import Quantum.Extras 0.1
+import Material.Extras 0.1
 
 TestCase {
     name: "Document Tests"
