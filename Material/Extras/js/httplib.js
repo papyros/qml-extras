@@ -4,24 +4,25 @@
  * - Colossians 3:17                                                       *
  *                                                                         *
  * Click App Store - An app for viewing the available Ubuntu Touch apps    *
- * Copyright (C) 2013 Michael Spencer <sonrisesoftware@gmail.com>          *
- *                                                                         *
- * This program is free software: you can redistribute it and/or modify    *
- * it under the terms of the GNU General Public License as published by    *
- * the Free Software Foundation, either version 3 of the License, or       *
- * (at your option) any later version.                                     *
- *                                                                         *
- * This program is distributed in the hope that it will be useful,         *
- * but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
- * GNU General Public License for more details.                            *
- *                                                                         *
- * You should have received a copy of the GNU General Public License       *
- * along with this program. If not, see <http://www.gnu.org/licenses/>.    *
- ***************************************************************************/
-.pragma library
+ *
+ * Copyright (C) 2014 Michael Spencer
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 2.1 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
-Qt.include('promises.js')
+.pragma library
+.import "promises.js" as Promises
 
 function post(path, args) {
     return request(path, "POST", args)
@@ -58,9 +59,9 @@ function request(path, call, args) {
     print(call, address, body)
     print("Headers", JSON.stringify(headers))
 
-    var promise = new Promise()
+    var promise = new Promises.Promise()
 
-    var doc = new XMLHttpRequest();   
+    var doc = new XMLHttpRequest();
     doc.timeout = 1000;
     doc.onreadystatechange = function() {
         if (doc.readyState === XMLHttpRequest.DONE) {
