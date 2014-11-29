@@ -1,6 +1,8 @@
 QML Extras
 ==========
 
+[![Build Status](https://travis-ci.org/quantum-os/qml-extras.svg)](https://travis-ci.org/quantum-os/qml-extras)
+
 Extra types and utilities to make QML even more awesome
 
 Developed by Michael Spencer
@@ -46,4 +48,4 @@ Item {
 
 ### Licensing ###
 
-QML Extras is free software; you can redistribute it and/or modify it under the terms of the GNU Library Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+QML Extras is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
