@@ -1,0 +1,4 @@
+tests/tst_extras
+.qmake.stash
+Makefile
+*.o
