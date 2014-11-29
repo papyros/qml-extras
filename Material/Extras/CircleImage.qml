@@ -1,7 +1,7 @@
 /*
  * QML Extras - Extra types and utilities to make QML even more awesome
  *
- * Copyright (C) 2014 Michael Spencer
+ * Copyright (C) 2014 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -52,4 +52,3 @@ Item {
         maskSource: mask
     }
 }
-
