@@ -8,4 +8,4 @@ install:
 - sudo apt-get -y install qtdeclarative5-test-plugin pep8 pyflakes
 script:
 - qmake
-- xvfb-run make check
+- make check
