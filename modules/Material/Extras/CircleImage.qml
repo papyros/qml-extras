@@ -39,7 +39,7 @@ Item {
 
     Image {
         id: mask
-        source: Qt.resolvedUrl("circle.png")
+        source: Qt.resolvedUrl("images/circle.png")
         anchors.fill: image
         smooth: true
         visible: false
