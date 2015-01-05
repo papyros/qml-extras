@@ -11,3 +11,6 @@ install:
 script:
 - qmake
 - make check
+
+notifications:
+  slack: papyros:Dfl04xnx2RdvHLiue5Lm7v5R
