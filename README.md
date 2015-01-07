@@ -1,7 +1,7 @@
 QML Extras
 ==========
 
-[![Build Status](https://travis-ci.org/quantum-os/qml-extras.svg)](https://travis-ci.org/quantum-os/qml-extras)
+[![Build Status](https://travis-ci.org/papyros/qml-extras.svg)](https://travis-ci.org/papyros/qml-extras)
 
 Extra types and utilities to make QML even more awesome
 
