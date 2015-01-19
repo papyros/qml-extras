@@ -19,7 +19,21 @@
 
 .pragma library
 
-var Promise = function (delayed) {
+function subclass(constructor, superConstructor) {
+    function surrogateConstructor() {}
+
+    surrogateConstructor.prototype = superConstructor.prototype;
+
+    var prototypeObject = new surrogateConstructor();
+    prototypeObject.constructor = constructor;
+
+    constructor.prototype = prototypeObject;
+}
+
+
+// Promise class
+
+function Promise(delayed) {
     this.thenHandlers = []
     this.onDone = []
     this.onError = []
@@ -67,4 +81,38 @@ Promise.prototype.reject = function (error) {
 
 Promise.prototype.start = function(args) {
     this.code(args)
+}
+
+// JoinedPromise class
+
+subclass(JoinedPromise, Promise)
+
+function JoinedPromise() {
+    Promise.call(this);
+
+    this.promiseCount = 0
+}
+
+JoinedPromise.prototype.add = function(promise) {
+    this.promiseCount++
+
+    var join = this
+
+    promise.done(function(data) {
+        join.promiseCount--
+
+        if (join.promiseCount == 0) {
+            print("All joined promises done!")
+            join.resolve()
+        }
+    })
+
+    promise.error(function (error) {
+        join.promiseCount = -1
+
+        print("A joined promise failed, shortcutting to failure!")
+        join.reject(error)
+    })
+
+    return this
 }
