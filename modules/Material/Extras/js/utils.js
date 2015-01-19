@@ -110,7 +110,20 @@ function newObject(path, args, parent) {
     if (component.status === QtQuick.Component.Error) {
         // Error Handling
         print("Unable to load object: " + path + "\n" + component.errorString())
+        return null
     }
 
     return component.createObject(parent, args);
+}
+
+function nth(d) {
+    if(d>3 && d<21)
+        return 'th'; // thanks kennebec
+
+    switch (d % 10) {
+        case 1:  return "st";
+        case 2:  return "nd";
+        case 3:  return "rd";
+        default: return "th";
+    }
 }

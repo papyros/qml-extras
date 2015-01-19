@@ -18,6 +18,7 @@
  */
 
 import QtQuick 2.3
+import Material.Extras 0.1 as Extras
 import QtGraphicalEffects 1.0
 
 Item {
@@ -25,11 +26,12 @@ Item {
 
     property alias source: image.source
     property alias status: image.status
+    property alias averageColor: image.averageColor
 
     width: image.implicitWidth
     height: image.implicitHeight
 
-    Image {
+    Extras.Image {
         id: image
         anchors.fill: parent
         smooth: true
@@ -37,9 +39,9 @@ Item {
         mipmap: true
     }
 
-    Image {
+    Extras.Image {
         id: mask
-        source: Qt.resolvedUrl("circle.png")
+        source: Qt.resolvedUrl("images/circle.png")
         anchors.fill: image
         smooth: true
         visible: false

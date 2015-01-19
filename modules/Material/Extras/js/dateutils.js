@@ -131,6 +131,38 @@ function friendlyTime(time, standalone) {
     return standalone ? Qt.formatDate(time) : ("on %1").arg(Qt.formatDate(time))
 }
 
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+function shortDuration(duration, type) {
+    var hours = Math.floor(duration/(1000 * 60 * 60))
+    var minutes = Math.floor(duration/(1000 * 60) - 60 * hours)
+    var seconds = Math.floor(duration/1000 - 60 * minutes - 60 * 60 * hours)
+
+    if (type === undefined)
+        type = '?'
+
+    var str = ''
+    if (type === 's' || type === '?')
+        str = "%1".arg(pad(seconds, 2))
+    if (type === 's' || type === 'm' || (type === '?' && (minutes >= 1 || hours >= 1))) {
+        if (str.length > 0)
+            str = "%1:%2".arg(pad(minutes, 2)).arg(str)
+        else
+            str = "%1".arg(pad(minutes, 2))
+    }
+    if (type === 's' || type === 'm' || type === 'h' || (type === '?' && hours >= 1)) {
+        if (str.length > 0)
+            str = "%1:%2".arg(hours).arg(str)
+        else
+            str = "%1".arg(hours)
+    }
+    return str.trim()
+}
+
 function friendlyDuration(duration, type) {
     var hours = Math.floor(duration/(1000 * 60 * 60))
     var minutes = Math.floor(duration/(1000 * 60) - 60 * hours)
