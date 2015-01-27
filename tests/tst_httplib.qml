@@ -27,7 +27,7 @@ TestCase {
 
         var html = "";
 
-        var promise = HttpLib.get("http://www.google.com")
+        var promise = Http.get("http://www.google.com")
             .then( function(data) {
                 html = data;
         });
