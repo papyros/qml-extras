@@ -1,6 +1,7 @@
 module Material.Extras
 
 CircleImage 0.1 CircleImage.qml
+CircleItem 0.1 CircleItem.qml
 Image 0.1 Image.qml
 ColumnFlow 0.1 ColumnFlow.qml
 Document 0.1 Document.qml
