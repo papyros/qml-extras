@@ -23,20 +23,22 @@ import QtGraphicalEffects 1.0
 Item {
     id: item
 
-    property Item content
+    property alias source: mask.source
 
-    Image {
-        id: mask
-        source: Qt.resolvedUrl("images/circle.png")
+    Rectangle {
+        id: circleMask
         anchors.fill: parent
+
         smooth: true
         visible: false
-        mipmap: true
+
+        radius: Math.max(width/2, height/2)
     }
 
     OpacityMask {
+        id: mask
+
         anchors.fill: parent
-        source: content
-        maskSource: mask
+        maskSource: circleMask
     }
 }
