@@ -36,6 +36,32 @@ function generateID() {
     return guid
 }
 
+function findRoot(obj) {
+    while (obj.parent) {
+        obj = obj.parent
+    }
+
+    return obj
+}
+
+function findRootChild(obj, objectName) {
+    obj = findRoot(obj)
+
+    var childs = new Array(0);
+    childs.push(obj)
+    while (childs.length > 0) {
+        if (childs[0].objectName == objectName) {
+            return childs[0]
+        }
+        for (var i in childs[0].data) {
+            childs.push(childs[0].data[i])
+        }
+        childs.splice(0, 1);
+    }
+    return null;
+}
+
+
 function findChild(obj,objectName) {
     var childs = new Array(0);
     childs.push(obj)
