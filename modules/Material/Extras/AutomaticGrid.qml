@@ -28,12 +28,13 @@ Grid {
     property alias model: repeater.model
     property real widthOverride: parent.width
     property real heightOverride: parent.height
+    property real minColumnSpacing
 
 
     columns: {
         var flooredResult = Math.floor(widthOverride/cellWidth);
         if (flooredResult >= 1 && flooredResult <= repeater.count)
-            if ((widthOverride-(flooredResult*cellWidth))/(flooredResult+1) < units.gu(1))
+            if ((widthOverride-(flooredResult*cellWidth))/(flooredResult+1) < minColumnSpacing)
                 return flooredResult-1;
             else
                 return flooredResult;
@@ -43,8 +44,7 @@ Grid {
             return 1;
     }
 
-    columnSpacing: (widthOverride-(columns*cellWidth))/(columns+1) < units.gu(0.5) ? units.gu(0.5) : (widthOverride-(columns*cellWidth))/(columns+1)
-    rowSpacing: units.gu(2)
+    columnSpacing: (widthOverride-(columns*cellWidth))/(columns+1) < (minColumnSpacing/2) ? (minColumnSpacing/2) : (widthOverride-(columns*cellWidth))/(columns+1)
     width: widthOverride - 2*columnSpacing
     anchors{
         horizontalCenter: parent.horizontalCenter
