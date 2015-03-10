@@ -20,7 +20,7 @@ make install
 Promise:
 ```
 import QtQuick 2.3
-import Quantum.Extras 0.1
+import Material.Extras 0.1
 
 Item {
     function makePromise() {
