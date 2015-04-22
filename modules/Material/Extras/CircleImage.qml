@@ -28,6 +28,8 @@ Item {
     property alias status: image.status
     property alias averageColor: image.averageColor
     property alias sourceSize: image.sourceSize
+    property alias asynchronous: image.asynchronous
+    property alias cache: image.cache
 
     width: image.implicitWidth
     height: image.implicitHeight
