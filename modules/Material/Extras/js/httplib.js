@@ -20,27 +20,27 @@
 .pragma library
 .import "promises.js" as Promises
 
-function post(path, args) {
-    return request(path, "POST", args)
+function post(path, args, timeout) {
+    return request(path, "POST", args, timeout)
 }
 
-function patch(path, args) {
-    return request(path, "POST", args)
+function patch(path, args, timeout) {
+    return request(path, "POST", args, timeout)
 }
 
-function put(path, args) {
-    return request(path, "PUT", args)
+function put(path, args, timeout) {
+    return request(path, "PUT", args, timeout)
 }
 
 //function delete(path, options, args) {
 //    request(path, "DELETE", options, args)
 //}
 
-function get(path, args) {
-    return request(path, "GET", args)
+function get(path, args, timeout) {
+    return request(path, "GET", args, timeout)
 }
 
-function request(path, call, args) {
+function request(path, call, args, timeout) {
     var address = path
 
     if (!args) args = {}
@@ -58,13 +58,28 @@ function request(path, call, args) {
     var promise = new Promises.Promise()
 
     var doc = new XMLHttpRequest();
-    doc.timeout = 1000;
+
+    var timer
+    if(timeout !== undefined) {
+        console.log("Creating timer.")
+        timer = Qt.createQmlObject("import QtQuick 2.3; Timer {interval: " + timeout + "; repeat: false; running: true;}", Qt.application, "XHRTimer")
+        timer.triggered.connect(function(){
+            doc.hasTimeout = true
+            doc.abort()
+        });
+    }
+
     doc.onreadystatechange = function() {
         if (doc.readyState === XMLHttpRequest.DONE) {
             //print(doc.getResponseHeader("X-RateLimit-Remaining"))
 
             //print(doc.responseText)
 
+            if (timer) {
+                console.log("Destroing timer.")
+                timer.destroy()
+                timer = undefined
+            }
 
             var responseArray = doc.getAllResponseHeaders().split('\n')
             var responseHeaders = {}
@@ -84,12 +99,13 @@ function request(path, call, args) {
                 promise.resolve(doc.responseText)
             } else {
                 print("Calling back with error...")
-                promise.reject(doc.responseText)
+                var error = doc.responseText;
+                if (doc.hasTimeout) {
+                    error = "Conection timeout."
+                }
+                promise.reject(error)
             }
         }
-     }
-    doc.ontimeout = function () {
-        callback(true, 0, "", args)
     }
 
     doc.open(call, address, true);
