@@ -101,7 +101,7 @@ function request(path, call, args, timeout) {
                 print("Calling back with error...")
                 var error = doc.responseText;
                 if (doc.hasTimeout) {
-                    error = "Conection timeout."
+                    error = "Connection timeout."
                 }
                 promise.reject(error)
             }
