@@ -1,4 +1,4 @@
-QML Material CHANGELOG
+QML Extras CHANGELOG
 ======================
 
 ### Version 0.1.0 (May 6, 2015)
