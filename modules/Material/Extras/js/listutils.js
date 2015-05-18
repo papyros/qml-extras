@@ -135,7 +135,7 @@ function concat(list, prop, filter) {
 
 function getItem(model, index) {
     var item = model.hasOwnProperty("get") ? model.get(index) : model[index]
-    if (model.hasOwnProperty("get"))
+    if (model.hasOwnProperty("get") && item.modelData)
         item = item.modelData
 
     return item
