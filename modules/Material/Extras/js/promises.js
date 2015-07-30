@@ -103,7 +103,7 @@ JoinedPromise.prototype.add = function(promise) {
 
         if (join.promiseCount == 0) {
             print("All joined promises done!")
-            join.resolve()
+            join.resolve(data)
         }
     })
 
